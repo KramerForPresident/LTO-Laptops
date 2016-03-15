@@ -1,5 +1,5 @@
 module.exports = function(app){
-	var musicians = require('./controllers/laptops');
+	var laptops = require('./controllers/laptops');
 
 	app.get('/laptops', laptops.findAll);
 	app.get('/laptops/:id', laptops.findById);

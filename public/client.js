@@ -34,10 +34,14 @@ $(function(){
 	$('#target').submit(function(event){
 		asset = $('#asset').val();
 		name = $('#name').val();
+		
+		$('#asset').val('');
+		$('#name').val('');
+		
 		//alert("The input is " + asset + " " + name);
 		event.preventDefault();
 		
-		$.get('/log', {a: asset, n: name}, function(data){
+		$.get('/laptops', {a: asset, n: name}, function(data){
 			console.log("Sent request data");
 		});
 		
