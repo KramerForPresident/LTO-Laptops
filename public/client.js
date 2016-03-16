@@ -28,7 +28,13 @@ $(function(){
 	
 	$('#run').click(function(){
 		$('#target').submit();
-		
+	});
+	
+	
+	$('#pullData').click(function(){
+		$.get('/laptops', {}, function(){
+			console.log("Get request sent");
+		});
 	});
 	
 	$('#target').submit(function(event){
@@ -41,8 +47,8 @@ $(function(){
 		//alert("The input is " + asset + " " + name);
 		event.preventDefault();
 		
-		$.get('/laptops', {a: asset, n: name}, function(data){
-			console.log("Sent request data");
+		$.post('/laptops', {a: asset, n: name}, function(data){
+			console.log("Post request sent");
 		});
 		
 	});
