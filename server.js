@@ -23,6 +23,7 @@ function findAll(req, res){
 			for(var i = 0; i < rows.length; i++){
 				console.log(rows[i].asset + " " + rows[i].name);
 			}
+			res.send(rows);
 		}
 		else{
 			console.log("There was an error performing query");
@@ -45,6 +46,21 @@ function add(req, res){
 	console.log("Executing add...");
 	console.log("Asset Tag: " + inputA);
 	console.log("Name: " + inputN);
+	
+	var queryString = "INSERT INTO laptops (asset, name) VALUES('" + inputA + "', '" + inputN + "');"
+	//console.log(queryString);
+	
+	connection.query(queryString, function(err, rows, fields){
+		if(!err){
+			console.log("New table..");
+			for(var i = 0; i < rows.length; i++){
+				console.log(rows[i].asset + " " + rows[i].name);
+			}
+		}
+		else{
+			console.log("Error: " + err);
+		}
+	});
 }
 
 function update(){
