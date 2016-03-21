@@ -19,15 +19,18 @@ $(function(){
 				asset: data[i].asset,
 				name: data[i].name,
 				lto: data[i].lto,
-				school: data[i].school
+				school: data[i].school,
+				hasLTO: false
 			});
 			
 			var placeholder;
 			if(list[i].lto == null){
 				placeholder = "";
+				list[i].hasLTO = false;
 			}
 			else{
 				placeholder = "<div class = 'ltoName'>" + list[i].lto + "</div>";
+				list[i].hasLTO = true;
 			}
 			
 			
@@ -35,18 +38,25 @@ $(function(){
 			
 			
 			
-				
+		
 			var info =
 				"<td>" + list[i].name + placeholder + "</td>"+ 
 				"<td>" + list[i].asset + "</td>" +
 				"<td>" + list[i].school + "</td>" + 
 				"<td>" + inputLTO + "</td>";
+				
 			
 			
-			line = "<tr>" + info + "</tr>";
+			line = "<tr id = '" + list[i].id +  "'>" + info + "</tr>";
+			
 		//	console.log(line);
 
 			$('#display').append(line);
+			
+			if(list[i].hasLTO == true){
+				$('#' + list[i].id + "").addClass('withLTO');
+			
+			}
 		}	
 	});
 	
@@ -60,7 +70,7 @@ $(function(){
 		var input = $(this).prev().val();
 		
 		//this grabs the id of the specific dom element
-		var $id = $(this).parent().parent().attr('id');
+		var $id = $(this).parent().parent().parent().attr('id');
 		console.log($id);
 		
 		
