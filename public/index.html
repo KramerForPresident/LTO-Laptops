@@ -11,18 +11,30 @@
 	<body>
 		<h1>LTO Laptop Form</h1>
 			
-		<form id="target">
-			Asset Tag:<br/>
-  			<input type="text" id= "asset" value=""><br/></br/>
-  			Name:<br/>
-  			<input type="text" id= "name" value="">
-		</form>
-		
-		<button type="button" id="run">Submit</button>
+		<div class = "container">
 				
+			<table>
+				<thead>
+  					<tr>
+     					<th>Name</th>
+      					<th>Asset Tag</th>
+      					<th>School</th>
+    				</tr>
+  				</thead>
+  				
+  				<tbody id = "display"></tbody>
+			</table>
+			
+			<form id="target">
+				Asset Tag:<br/>
+				<input type="text" id= "asset" value=""><br/></br/>
+				Name:<br/>
+				<input type="text" id= "name" value="">
+			</form>
 		
-		<ul id = "display"></ul>
-	
+			<button type="button" id="run">Submit</button>		
+		
+		</div>
 	</body>
 
 </html>

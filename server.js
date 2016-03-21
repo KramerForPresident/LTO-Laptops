@@ -21,7 +21,7 @@ function findAll(req, res){
 	connection.query("SELECT * FROM laptops", function(err, rows, fields){
 		if(!err){
 			for(var i = 0; i < rows.length; i++){
-				console.log(rows[i].asset + " " + rows[i].name);
+			//	console.log(rows[i].asset + " " + rows[i].name);
 			}
 			res.send(rows);
 		}
@@ -33,9 +33,23 @@ function findAll(req, res){
 }
 
 function findById(req, res){
-	var id = req.params.id;
 	console.log("Executing findById...");
-	console.log("Page id is: " + id);
+
+	var id = req.params.id;
+	var queryString = "SELECT * FROM laptops WHERE id =" + id + ";";
+	
+	connection.query(queryString, function(err, rows, fields){
+		if(!err){
+			res.send(rows);
+		}else{
+			console.log("Error " + err);
+		}
+	
+	});
+	
+	
+	var message = ("Located id number " + id);
+//	console.log("Page id is: " + id);
 
 }
 
@@ -50,9 +64,9 @@ function add(req, res){
 	var queryString = "INSERT INTO laptops (asset, name) VALUES('" + inputA + "', '" + inputN + "');"
 	//console.log(queryString);
 	
+	
 	connection.query(queryString, function(err, rows, fields){
 		if(!err){
-			console.log("New table..");
 			for(var i = 0; i < rows.length; i++){
 				console.log(rows[i].asset + " " + rows[i].name);
 			}
@@ -61,12 +75,43 @@ function add(req, res){
 			console.log("Error: " + err);
 		}
 	});
+	
+	
+	res.send("Complete");
 }
 
-function update(){
+function update(req, res){
+	var id = req.params.id;
+	var name = req.body.i;
+
+
+
+	console.log("Executing update..");
+	console.log(id + " " + name);
+	
+	var queryString = "UPDATE laptops SET lto='" + name + "' WHERE id = " + id + ";"
+	
+	//console.log(queryString);
+	
+	connection.query(queryString, function(err, rows, fields){
+		if(!err){
+			console.log("added lto!");
+		}
+		else{
+			console.log("Error: " + err);
+		}
+	});
+	
+	res.send("SUCCESSO");
+	
 }
+
+
 
 function deleteById(){
+	
+
+
 }
 
 
