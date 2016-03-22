@@ -2,6 +2,7 @@ body{
 	font-family: 'Titillium Web', sans-serif;
 	background: #c1bdba;
 	color: white;
+	font-weight: 300;
 }
 
 
@@ -19,7 +20,7 @@ table{
 	border-collapse: collapse;
 }
 tr{
-	padding: 5px;
+	padding: 9px;
 	border: 2px solid white;
 }
 

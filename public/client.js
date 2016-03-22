@@ -6,6 +6,11 @@ $(function(){
 	
 	var box = '<input type="text" class= "ltoName" value="">';
 	var but = '<button type ="button" class="addLTO">LTO</button>';
+	var editDiv = "<div class='edit'><strong>&nbsp&nbspEdit</strong></div>"
+	
+	
+	
+
 	
 	var inputLTO = "<div class='inputLTO'>" +  box + but +  "</div>";
 	
@@ -20,6 +25,7 @@ $(function(){
 				name: data[i].name,
 				lto: data[i].lto,
 				school: data[i].school,
+				compName: data[i].compName,
 				hasLTO: false
 			});
 			
@@ -29,21 +35,17 @@ $(function(){
 				list[i].hasLTO = false;
 			}
 			else{
-				placeholder = "<div class = 'ltoName'>" + list[i].lto + "</div>";
+				placeholder = "<div class = 'ltoName'><strong>" + list[i].lto + "</strong></div>";
 				list[i].hasLTO = true;
 			}
 			
 			
-			
-			
-			
-			
-		
 			var info =
-				"<td>" + list[i].name + placeholder + "</td>"+ 
+				"<td>" + list[i].name + placeholder + inputLTO + "</td>"+ 
 				"<td>" + list[i].asset + "</td>" +
 				"<td>" + list[i].school + "</td>" + 
-				"<td>" + inputLTO + "</td>";
+				"<td>" + list[i].compName + "</td>" + 
+				"<td>" + editDiv + "</td>";
 				
 			
 			
@@ -58,6 +60,18 @@ $(function(){
 			
 			}
 		}	
+	});
+	
+	
+	
+	$(document).on('click', '.edit', function(){
+		var $target =  $(this).parent().parent().children().first().find('.inputLTO');
+		//console.log($target);
+	
+		$($target).toggle();	
+	
+	
+	
 	});
 	
 	
