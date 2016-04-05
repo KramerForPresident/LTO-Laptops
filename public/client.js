@@ -1,18 +1,22 @@
 $(function(){
 	var asset;
 	var name;
+	var school;
+	var code;
 	
 	var list = [];
 	
 	var box = '<input type="text" class= "ltoName" value="">';
 	var but = '<button type ="button" class="addLTO">LTO</button>';
+	
+	var del = '<button type="button" class="removeLTO">Remove</button>';
 	var editDiv = "<div class='edit'><strong>&nbsp&nbspEdit</strong></div>"
 	
 	
 	
 
 	
-	var inputLTO = "<div class='inputLTO'>" +  box + but +  "</div>";
+	var inputLTO;
 	
 	
 	$.get('/laptops', {}, function(data){
@@ -33,10 +37,13 @@ $(function(){
 			if(list[i].lto == null){
 				placeholder = "";
 				list[i].hasLTO = false;
+				inputLTO= "<div class='inputLTO'>" +  box + but +  "</div>";
+
 			}
 			else{
 				placeholder = "<div class = 'ltoName'><strong>" + list[i].lto + "</strong></div>";
 				list[i].hasLTO = true;
+				inputLTO = "<div class ='inputLTO'>" + del + "</div>";
 			}
 			
 			
@@ -54,10 +61,12 @@ $(function(){
 		//	console.log(line);
 
 			$('#display').append(line);
+			$('#' + list[i].id).children().first().find('.inputLTO').hide();
+
 			
 			if(list[i].hasLTO == true){
 				$('#' + list[i].id + "").addClass('withLTO');
-			
+				
 			}
 		}	
 	});
@@ -65,10 +74,40 @@ $(function(){
 	
 	
 	$(document).on('click', '.edit', function(){
-		var $target =  $(this).parent().parent().children().first().find('.inputLTO');
-		//console.log($target);
+		var id = $(this).parent().parent().attr('id');
+		console.log(id + " Length: " + list.length);
+		var $toggleBox;
+		
+		
+		for(var i = 1; i <= list.length; i++){
+			$toggleBox =  $('#' + i).children().first().find('.inputLTO');
+			if(i != id){
+				$($toggleBox).hide();
+			}
+			else{
+				$($toggleBox).toggle();
+			}
+		} 
 	
-		$($target).toggle();	
+	
+	});
+	
+	
+	$(document).on('click', '.removeLTO', function(){
+		console.log("Delete clicked");
+		var $id = $(this).parent().parent().parent().attr('id');
+	
+	
+	
+		$.ajax({
+			method: 'DELETE',
+			data: {id: $id},
+			url: '/laptops/' + $id,
+			success: function(result){
+				console.log(result);
+				location.reload(true);
+			}
+		});
 	
 	
 	
@@ -80,7 +119,6 @@ $(function(){
 	
 	//enter lto 
 	$(document).on('click', '.addLTO', function(){
-		console.log($(this).prev().val());
 		var input = $(this).prev().val();
 		
 		//this grabs the id of the specific dom element
@@ -114,14 +152,24 @@ $(function(){
 	$('#target').submit(function(event){
 		asset = $('#asset').val();
 		name = $('#name').val();
+		school = $('#inSchool').val();
+		code = $('#inCode').val();
 		
+	
+	
+	
 		$('#asset').val('');
 		$('#name').val('');
+		$('#inSchool').val('');
+		$('#inCode').val('');
+		
 		
 		//alert("The input is " + asset + " " + name);
 		event.preventDefault();
 		
-		$.post('/laptops', {a: asset, n: name}, function(data){
+	
+		
+		$.post('/laptops', {a: asset, n: name, s: school, c: code}, function(data){
 			console.log("Post request sent");
 		});
 		

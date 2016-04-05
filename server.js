@@ -57,12 +57,16 @@ function findById(req, res){
 function add(req, res){
 	var inputA = req.body.a;
 	var inputN = req.body.n;
+	var inputS = req.body.s;
+	var inputC = req.body.c;
 	console.log("Executing add...");
 	console.log("Asset Tag: " + inputA);
 	console.log("Name: " + inputN);
+	console.log("School: " + inputS);
+	console.log("Computer Name: " + inputC);
 	
-	var queryString = "INSERT INTO laptops (asset, name) VALUES('" + inputA + "', '" + inputN + "');"
-	//console.log(queryString);
+	var queryString = "INSERT INTO laptops (asset, name, school, compName) VALUES('" + inputA + "', '" + inputN + "', '" + inputS + "', '" + inputC + "');";
+	console.log(queryString);
 	
 	
 	connection.query(queryString, function(err, rows, fields){
@@ -89,7 +93,7 @@ function update(req, res){
 	console.log("Executing update..");
 	console.log(id + " " + name);
 	
-	var queryString = "UPDATE laptops SET lto='" + name + "' WHERE id = " + id + ";"
+	var queryString = "UPDATE laptops SET lto='" + name + "' WHERE id = " + id + ";";
 	
 	//console.log(queryString);
 	
@@ -108,8 +112,28 @@ function update(req, res){
 
 
 
-function deleteById(){
+function deleteById(req, res){
+	var id = req.body.id;
+	console.log("Executing delete by id");
+	//console.log(req);
+	console.log(id);
 	
+	
+	var queryString = "UPDATE laptops SET lto= NULL WHERE id = " + id + ";";
+
+	connection.query(queryString, function(err, rows, fields){
+		if(!err){
+			console.log("deleted lto!");
+		}
+		else{
+			console.log("Error: " + err);
+		}
+	});
+
+
+
+	
+	res.send("SuccessssssssoooOOO");
 
 
 }
